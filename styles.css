@@ -55,6 +55,7 @@ textarea,
 }
 
 /* 6. Bold Rating Labels and Numbers */
+/* 6. Bold Rating Labels and Numbers */
 /* Use attribute selector for reliability as these rows have hardcoded grey background */
 tr[style*="background-color: #dcdcdc"] td,
 tr[style*="dcdcdc"] td {
@@ -63,12 +64,12 @@ tr[style*="dcdcdc"] td {
   font-size: 1.1em !important;
 }
 
-/* Target the numbers row which usually follows the grey header */
-tr[style*="background-color: #dcdcdc"]+tr td,
-tr[style*="dcdcdc"]+tr td {
-  font-weight: 800 !important;
-  color: #2c3e50 !important;
-  font-size: 1.1em !important;
+/* REMOVED sibling selector that was affecting description rows */
+
+/* Ensure ALL table text is visible (dark) against the light background */
+/* This fixes the "disappeared text" issue if it was white-on-white */
+.panel-body table td {
+  color: #2c3e50;
 }
 
 /* 7. Improve Layout Readability */
