@@ -134,12 +134,44 @@ function manageFloatingKey(currentPart) {
   const container = document.getElementById('nmt-floating-key-container');
   if (!container) return;
 
-  // For now, only show in Part A
-  if (currentPart === 'Part A') {
+  // Show in Part A, B, C, or D
+  const validParts = ['Part A', 'Part B', 'Part C', 'Part D'];
+  if (validParts.includes(currentPart)) {
     container.style.display = 'block';
+    updateRatingKeyLabels(currentPart);
   } else {
     container.style.display = 'none';
   }
+}
+
+function updateRatingKeyLabels(currentPart) {
+  const container = document.getElementById('nmt-floating-key-container');
+  if (!container) return;
+
+  const labels = {
+    'Part B': ['Absent/Poor', 'Disorganized/Episodic', 'Adequate', 'Positive'],
+    'Part C': ['Undeveloped/Severely Dysfunctional', 'Precursor Capacity/Moderate Dysfunction', 'Episodically Functional/Mild Compromise', 'Developed/Typical Range'],
+    'Part D': ['Absent/Poor', 'Disorganized/Episodic', 'Adequate', 'Positive'],
+    'default': ['Minimal', 'Mild', 'Moderate', 'Severe']
+  };
+
+  const currentLabels = labels[currentPart] || labels['default'];
+  const tbody = container.querySelector('tbody');
+  if (!tbody) return;
+
+  const rows = tbody.querySelectorAll('tr');
+  const levelClasses = ['lvl-minimal', 'lvl-mild', 'lvl-moderate', 'lvl-severe'];
+
+  currentLabels.forEach((label, i) => {
+    if (rows[i]) {
+      const td = rows[i].querySelector('td:first-child');
+      if (td) {
+        td.innerText = label;
+        // Update class for color mapping consistency if label changed
+        td.className = levelClasses[i];
+      }
+    }
+  });
 }
 
 function manageAutoInput(percentage, currentPart) {
@@ -252,7 +284,9 @@ function addFloatingRatingKey() {
   const content = document.createElement('div');
   content.id = 'nmt-floating-key-content';
   content.innerHTML = `
-    <div class="nmt-key-header">Rating Key</div>
+    <div class="nmt-key-header">
+      Rating Key <span class="nmt-key-toggle-icon">▼</span>
+    </div>
     <div class="nmt-key-table-wrapper">
       <table>
         <thead>

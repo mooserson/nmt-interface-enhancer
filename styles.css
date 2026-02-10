@@ -127,7 +127,8 @@ th {
 /* Navigation Container */
 #nmt-nav-container {
   position: fixed;
-  top: 50%;
+  top: 30%;
+  /* Moved up from 50% */
   right: 20px;
   transform: translateY(-50%);
   display: flex;
@@ -324,8 +325,8 @@ th {
 /* Floating Rating Key */
 #nmt-floating-key-container {
   position: fixed;
-  bottom: 40px;
-  /* Just above the 30px progress bar */
+  top: 50%;
+  /* Approx below nav (30% + ~20% offset) */
   right: 20px;
   z-index: 9999;
   display: flex;
@@ -344,7 +345,10 @@ th {
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  width: 200px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: fit-content;
+  min-width: 200px;
+  max-width: 500px;
   overflow: hidden;
 }
 
@@ -369,6 +373,20 @@ th {
   text-align: center;
   cursor: pointer;
   transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nmt-key-toggle-icon {
+  font-size: 10px;
+  margin-left: 8px;
+  transition: transform 0.3s ease;
+}
+
+/* Expanded state (Icon points UP) */
+#nmt-floating-key-container.expanded .nmt-key-toggle-icon {
+  transform: rotate(180deg);
 }
 
 .nmt-key-header:hover {
@@ -390,6 +408,14 @@ th {
   text-align: left;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   font-size: 13px;
+}
+
+.nmt-key-table-wrapper td:last-child {
+  white-space: nowrap;
+}
+
+.nmt-key-table-wrapper td:first-child {
+  white-space: normal;
 }
 
 .nmt-key-table-wrapper th {
