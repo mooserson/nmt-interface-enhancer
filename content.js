@@ -298,20 +298,52 @@ function enhanceAsButtons(select, options) {
 
 // Initialize
 // Initialize
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
-    addBackground();
-    addNavigation();
-    enhanceDropdowns();
-    highlightErrors();
-  });
-} else {
-  // Sometimes DOM is ready but elements are inserted by JS. 
-  // Small timeout helps, or just running it.
+function initExtension() {
+  if (document.getElementById('nmt-nav-container')) return; // Already running?
+
   addBackground();
   addNavigation();
   enhanceDropdowns();
   highlightErrors();
+
+  // Watch for dynamic changes (ASP.NET partials, etc.)
+  const observer = new MutationObserver((mutations) => {
+    let shouldUpdateErrors = false;
+    let shouldEnhanceDropdowns = false;
+    let shouldRestoreUI = false;
+
+    mutations.forEach(mutation => {
+      if (mutation.type === 'childList') {
+        // If our UI elements were removed, put them back
+        const removedIds = Array.from(mutation.removedNodes).map(n => n.id);
+        if (removedIds.includes('nmt-nav-container') || removedIds.includes('nmt-bg-overlay')) {
+          shouldRestoreUI = true;
+        }
+
+        // If new content added, check for errors/dropdowns
+        if (mutation.addedNodes.length > 0) {
+          shouldUpdateErrors = true;
+          shouldEnhanceDropdowns = true;
+        }
+      }
+    });
+
+    if (shouldRestoreUI) {
+      if (!document.getElementById('nmt-nav-container')) addNavigation();
+      if (!document.getElementById('nmt-bg-overlay')) addBackground();
+    }
+
+    if (shouldUpdateErrors) highlightErrors();
+    if (shouldEnhanceDropdowns) enhanceDropdowns();
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initExtension);
+} else {
+  initExtension();
 }
 
 function highlightErrors() {
