@@ -1,12 +1,14 @@
 # 🧠 NMT Interface Enhancer
 
+![NMT Interface Enhancer Preview](images/nmt_ui_preview.png)
+
 Welcome! This is a little Chrome Extension to make the NMT reporting site much easier and nicer to use. 
 
 It adds:
 - 🎨 **Better UI**: Turns those tiny dropdowns into easy-to-use **sliders** and **buttons**.
 - 🚀 **Quick Navigation**: Jump between Part A, B, C, and D instantly with a sidebar.
 - 📊 **Progress Tracking**: See exactly how much you've done with a progress bar and filling buttons.
-- 🐦 **Vibes**: A calming bird background to help you focus.
+- 🐦 **Daily Bird**: A consistent, calming bird background specific to each report.
 
 ---
 
@@ -21,7 +23,7 @@ Unzip the folder somewhere easy to find (like your Desktop).
 ### 2. Open Chrome Extensions 🧩
 1. Open Google Chrome.
 2. In the address bar at the top, type: `chrome://extensions` and hit Enter.
-3. Or, click the **Puzzle Piece 🧩** icon in the top-right -> **Manage Extensions**.
+3. Or, click the **Puzzle Piece** icon <img src="images/puzzle_icon.png" width="30" style="vertical-align:middle" /> in the top-right -> **Manage Extensions**.
 
 ### 3. Turn on "Developer Mode" 🔧
 In the top-right corner of the Extensions page, you'll see a toggle switch called **Developer mode**. 
