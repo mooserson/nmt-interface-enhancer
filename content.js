@@ -331,6 +331,7 @@ function initExtension() {
     if (shouldRestoreUI) {
       if (!document.getElementById('nmt-nav-container')) addNavigation();
       if (!document.getElementById('nmt-bg-overlay')) addBackground();
+      updateProgress(); // Restore active halo
     }
 
     if (shouldUpdateErrors) highlightErrors();

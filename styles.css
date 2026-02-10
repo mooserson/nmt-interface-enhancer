@@ -24,7 +24,7 @@ form,
 table,
 .table,
 tbody,
-tr,
+tr:not(.nmt-error-row),
 td,
 th,
 .accordion-inner {
