@@ -286,3 +286,37 @@ th {
   border-color: #27ae60;
   font-weight: 600;
 }
+
+/* Auto-Input Button */
+#nmt-auto-input-container {
+  position: fixed;
+  bottom: 40px;
+  /* Above the 30px progress bar */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9997;
+  display: none;
+  /* Managed by JS */
+}
+
+#nmt-auto-input-btn {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s, background 0.2s;
+  font-size: 14px;
+}
+
+#nmt-auto-input-btn:hover {
+  background: #2ecc71;
+  transform: scale(1.05);
+}
+
+#nmt-auto-input-btn:active {
+  transform: scale(0.95);
+}

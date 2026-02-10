@@ -28,16 +28,16 @@ function addBackground() {
   // Curated list of high-quality bird images from Unsplash
   // Curated list of high-quality bird images from Unsplash
   const birdImages = [
-    "https://images.unsplash.com/photo-1552153411-7393273293ca?auto=format&fit=crop&w=2000&q=80", // Northern Cardinal
-    "https://images.unsplash.com/photo-1543542592-125828e62441?auto=format&fit=crop&w=2000&q=80", // Owl
-    "https://images.unsplash.com/photo-1444464666168-49d633b867ad?auto=format&fit=crop&w=2000&q=80", // Hummingbird
-    "https://images.unsplash.com/photo-1484279153070-71708892781b?auto=format&fit=crop&w=2000&q=80", // Blue Jay
-    "https://images.unsplash.com/photo-1510672322603-320085cd8974?auto=format&fit=crop&w=2000&q=80", // Kingfisher
-    "https://images.unsplash.com/photo-1473491573935-ee81aaade44c?auto=format&fit=crop&w=2000&q=80", // Robin
-    "https://images.unsplash.com/photo-1506220926022-cc5c12acdb35?auto=format&fit=crop&w=2000&q=80", // Sparrow
-    "https://images.unsplash.com/photo-1483015488109-17361682496a?auto=format&fit=crop&w=2000&q=80", // Eagle
-    "https://images.unsplash.com/photo-1520699049698-acd2fccb8cc8?auto=format&fit=crop&w=2000&q=80", // Parrot
-    "https://images.unsplash.com/photo-1459245358918-5b4324f6fcf8?auto=format&fit=crop&w=2000&q=80"  // Swan
+    "https://images.unsplash.com/photo-1624133310859-348852f33103?auto=format&fit=crop&w=2000&q=80", // Northern Cardinal
+    "https://images.unsplash.com/photo-1553264701-d138db4fd5d4?auto=format&fit=crop&w=2000&q=80", // Owl
+    "https://images.unsplash.com/photo-1635604133914-e68aa11e99a5?auto=format&fit=crop&w=2000&q=80", // Hummingbird
+    "https://images.unsplash.com/photo-1636246441747-7d7f83f4629c?auto=format&fit=crop&w=2000&q=80", // Blue Jay
+    "https://images.unsplash.com/photo-1444464666168-49d633b86797?auto=format&fit=crop&w=2000&q=80", // Kingfisher
+    "https://images.unsplash.com/photo-1628771791654-ca175737b8aa?auto=format&fit=crop&w=2000&q=80", // Robin
+    "https://images.unsplash.com/photo-1606071548917-78ed9809141f?auto=format&fit=crop&w=2000&q=80", // Sparrow
+    "https://images.unsplash.com/photo-1557401622-cfc0aa5d146c?auto=format&fit=crop&w=2000&q=80", // Eagle
+    "https://images.unsplash.com/photo-1552728089-57bdde30beb3?auto=format&fit=crop&w=2000&q=80", // Parrot
+    "https://images.unsplash.com/photo-1567112098492-382825853bdd?auto=format&fit=crop&w=2000&q=80"  // Swan
   ];
 
   // Get Report ID to use as seed
@@ -112,6 +112,42 @@ function updateProgress() {
     if (activeBtn) {
       activeBtn.classList.add('active-nav-btn');
     }
+  }
+
+  // 6. Manage "Input All 7s" Button
+  manageAutoInput(percentage, currentPart);
+}
+
+function manageAutoInput(percentage, currentPart) {
+  let container = document.getElementById('nmt-auto-input-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'nmt-auto-input-container';
+    container.innerHTML = `<button id="nmt-auto-input-btn">Input All 7s</button>`;
+    document.body.appendChild(container);
+
+    container.querySelector('button').addEventListener('click', () => {
+      const selects = document.querySelectorAll('select');
+      selects.forEach(select => {
+        if (!select.value || select.value === "") {
+          const sevenOpt = Array.from(select.options).find(opt => opt.value === "7");
+          if (sevenOpt) {
+            select.value = "7";
+            triggerChange(select);
+          }
+        }
+      });
+      // After bulk update, hide the button
+      container.style.display = 'none';
+    });
+  }
+
+  // Show only if 0% and in Part A, B, or D
+  const validParts = ['Part A', 'Part B', 'Part D'];
+  if (percentage === 0 && validParts.includes(currentPart)) {
+    container.style.display = 'block';
+  } else {
+    container.style.display = 'none';
   }
 }
 
@@ -323,6 +359,7 @@ function initExtension() {
   addNavigation();
   enhanceDropdowns();
   highlightErrors();
+  manageAutoInput(0, null); // Initialize container
 
   // Watch for dynamic changes (ASP.NET partials, etc.)
   const observer = new MutationObserver((mutations) => {
@@ -333,14 +370,14 @@ function initExtension() {
     for (const mutation of mutations) {
       // 1. FILTER: Ignore mutations caused by our own UI elements
       const target = mutation.target;
-      if (target.closest('#nmt-nav-container, .nmt-slider-wrapper, .nmt-btn-group, #nmt-progress-bar, #nmt-bg-overlay')) {
+      if (target.closest('#nmt-nav-container, .nmt-slider-wrapper, .nmt-btn-group, #nmt-progress-bar, #nmt-bg-overlay, #nmt-auto-input-container')) {
         continue;
       }
 
       if (mutation.type === 'childList') {
         // If our UI elements were removed, put them back
         const removedIds = Array.from(mutation.removedNodes).map(n => n.id);
-        if (removedIds.includes('nmt-nav-container') || removedIds.includes('nmt-bg-overlay')) {
+        if (removedIds.includes('nmt-nav-container') || removedIds.includes('nmt-bg-overlay') || removedIds.includes('nmt-auto-input-container')) {
           shouldRestoreUI = true;
         }
 
@@ -348,7 +385,7 @@ function initExtension() {
         const addedNodes = Array.from(mutation.addedNodes);
         const hasExternalAdditions = addedNodes.some(node => {
           if (node.nodeType !== 1) return false; // Only elements
-          return !node.closest?.('#nmt-nav-container, .nmt-slider-wrapper, .nmt-btn-group, #nmt-progress-bar, #nmt-bg-overlay');
+          return !node.closest?.('#nmt-nav-container, .nmt-slider-wrapper, .nmt-btn-group, #nmt-progress-bar, #nmt-bg-overlay, #nmt-auto-input-container');
         });
 
         if (hasExternalAdditions) {
@@ -361,6 +398,7 @@ function initExtension() {
     if (shouldRestoreUI) {
       if (!document.getElementById('nmt-nav-container')) addNavigation();
       if (!document.getElementById('nmt-bg-overlay')) addBackground();
+      if (!document.getElementById('nmt-auto-input-container')) manageAutoInput(0, null);
       updateProgress(); // Restore active halo
     }
 
