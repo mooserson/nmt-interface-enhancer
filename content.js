@@ -87,6 +87,21 @@ function updateProgress() {
     localStorage.setItem(`nmt_progress_${reportId}_${currentPart}`, percentage);
     updateNavButtons(); // Refresh visuals
   }
+
+  // 5. Highlight Active Section
+  if (currentPart) {
+    // Remove active class from all
+    const allBtns = document.querySelectorAll('#nmt-nav-container button');
+    allBtns.forEach(b => b.classList.remove('active-nav-btn'));
+
+    // Add to current
+    // currentPart is "Part A", id is "nmt-nav-Part-A"
+    const activeId = `nmt-nav-${currentPart.replace(' ', '-')}`;
+    const activeBtn = document.getElementById(activeId);
+    if (activeBtn) {
+      activeBtn.classList.add('active-nav-btn');
+    }
+  }
 }
 
 function updateNavButtons() {
@@ -138,6 +153,7 @@ function addNavigation() {
     const btn = document.createElement('button');
     btn.innerText = partName.split(' ')[1]; // "A"
     btn.dataset.partName = partName;
+    btn.id = `nmt-nav-${partName.replace(' ', '-')}`; // nmt-nav-Part-A
 
     btn.addEventListener('click', (e) => {
       const realBtn = document.querySelector(`button[name="section"][value="${partName}"]`) ||
