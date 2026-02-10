@@ -22,7 +22,7 @@ Unzip the folder somewhere easy to find (like your Desktop).
 ### 2. Open Chrome Extensions 🧩
 1. Open Google Chrome.
 2. In the address bar at the top, type: `chrome://extensions` and hit Enter.
-3. Or, click the **Puzzle Piece** icon <img src="images/puzzle_icon.png" width="30" style="vertical-align:middle" /> in the top-right -> **Manage Extensions**.
+3. Or, click the **Puzzle Piece** ![Chrome Extension Button Image](./images/chrome_extension_puzzle_piece.png) icon in the top-right -> **Manage Extensions**.
 
 ### 3. Turn on "Developer Mode" 🔧
 In the top-right corner of the Extensions page, you'll see a toggle switch called **Developer mode**. 
