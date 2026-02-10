@@ -125,6 +125,21 @@ function updateProgress() {
 
   // 6. Manage "Input All 7s" Button
   manageAutoInput(percentage, currentPart);
+
+  // 7. Manage Floating Rating Key
+  manageFloatingKey(currentPart);
+}
+
+function manageFloatingKey(currentPart) {
+  const container = document.getElementById('nmt-floating-key-container');
+  if (!container) return;
+
+  // For now, only show in Part A
+  if (currentPart === 'Part A') {
+    container.style.display = 'block';
+  } else {
+    container.style.display = 'none';
+  }
 }
 
 function manageAutoInput(percentage, currentPart) {
@@ -222,6 +237,58 @@ function addNavigation() {
   });
 
   updateNavButtons(); // Initial render from storage
+}
+
+// --- RATING KEY ---
+
+function addFloatingRatingKey() {
+  if (document.getElementById('nmt-floating-key-container')) return;
+
+  const container = document.createElement('div');
+  container.id = 'nmt-floating-key-container';
+  container.classList.add('expanded'); // Open by default
+  container.style.display = 'none'; // Hidden by default, managed by updateProgress
+
+  const content = document.createElement('div');
+  content.id = 'nmt-floating-key-content';
+  content.innerHTML = `
+    <div class="nmt-key-header">Rating Key</div>
+    <div class="nmt-key-table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Level</th>
+            <th>Values</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="lvl-minimal">Minimal</td>
+            <td>1, 2, 3</td>
+          </tr>
+          <tr>
+            <td class="lvl-mild">Mild</td>
+            <td>4, 5, 6</td>
+          </tr>
+          <tr>
+            <td class="lvl-moderate">Moderate</td>
+            <td>7, 8, 9</td>
+          </tr>
+          <tr>
+            <td class="lvl-severe">Severe</td>
+            <td>10, 11, 12</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  content.querySelector('.nmt-key-header').addEventListener('click', () => {
+    container.classList.toggle('expanded');
+  });
+
+  container.appendChild(content);
+  document.body.appendChild(container);
 }
 
 // --- DROPDOWNS ---
@@ -366,6 +433,7 @@ function initExtension() {
   injectStyles();
   addBackground();
   addNavigation();
+  addFloatingRatingKey();
   enhanceDropdowns();
   highlightErrors();
   manageAutoInput(0, null); // Initialize container
