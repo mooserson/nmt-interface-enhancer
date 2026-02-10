@@ -11,14 +11,12 @@ function triggerChange(element) {
 
 
 function injectStyles() {
-  setTimeout(() => {
-    const link = document.createElement('link');
-    link.href = chrome.runtime.getURL('styles.css');
-    link.type = 'text/css';
-    link.rel = 'stylesheet';
-    document.head.appendChild(link);
-    console.log('NMT Extension: Styles injected after delay');
-  }, 500);
+  const link = document.createElement('link');
+  link.href = chrome.runtime.getURL('styles.css');
+  link.type = 'text/css';
+  link.rel = 'stylesheet';
+  document.head.appendChild(link);
+  console.log('NMT Extension: Styles injected');
 }
 
 // --- FEATURES ---
