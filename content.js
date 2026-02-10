@@ -234,9 +234,16 @@ function enhanceAsSlider(select, values) {
   // TWO-WAY BINDING
 
   // 1. Slider -> Select
+  // On Drag (Input): Update value visually + silently update select value
+  // DO NOT trigger 'change' event here, as it causes massive lag if site has heavy listeners
   slider.addEventListener('input', () => {
     display.innerText = slider.value;
     select.value = slider.value;
+  });
+
+  // On Drop (Change): Trigger the site's logic
+  slider.addEventListener('change', () => {
+    select.value = slider.value; // Ensure sync
     triggerChange(select); // Triggers site logic + our progress update
   });
 
