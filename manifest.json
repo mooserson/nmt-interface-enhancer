@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "NMT Interface Enhancer",
+  "version": "1.0",
+  "description": "Injects custom UI elements to replace dropdowns with sliders and buttons, and adds quick navigation.",
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://nmt1.neurosequential.com/*"
+      ],
+      "js": ["content.js"],
+      "css": ["styles.css"]
+    }
+  ]
+}
