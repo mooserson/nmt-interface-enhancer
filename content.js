@@ -14,8 +14,33 @@ function triggerChange(element) {
 function addBackground() {
   const bg = document.createElement('div');
   bg.id = 'nmt-bg-overlay';
-  // Using a reliable high-quality bird image URL
-  bg.style.backgroundImage = 'url("https://images.unsplash.com/photo-1444464666168-49d633b86797?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80")';
+
+  // Curated list of high-quality bird images from Unsplash
+  const birdImages = [
+    "https://images.unsplash.com/photo-1444464666168-49d633b86797?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Original
+    "https://images.unsplash.com/photo-1452570053594-1b985d6ea890?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Blue Jay
+    "https://images.unsplash.com/photo-1480044965905-02098d419e96?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Small bird on branch
+    "https://images.unsplash.com/photo-1552728089-57bdde30ebd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Cardinal
+    "https://images.unsplash.com/photo-1549608276-5786777e6587?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Yellow bird
+    "https://images.unsplash.com/photo-1555169062-013468b47731?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Colorful parrot
+    "https://images.unsplash.com/photo-1456885284447-7dd4bb8720bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Owl
+    "https://images.unsplash.com/photo-1516233758813-a38d024919c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Swan
+    "https://images.unsplash.com/photo-1522926193341-e9e6d9b8600d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Hummingbird
+    "https://images.unsplash.com/photo-1615497001839-b0a0eac3274c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"  // Kingfisher
+  ];
+
+  // Get Report ID to use as seed
+  const reportId = window.location.pathname.split('/').pop(); // "132280"
+  let index = 0;
+
+  if (reportId && !isNaN(parseInt(reportId))) {
+    index = parseInt(reportId) % birdImages.length;
+  }
+
+  const selectedImage = birdImages[index];
+  console.log(`NMT Extension: Selected bird image index ${index} for Report ${reportId}`);
+
+  bg.style.backgroundImage = `url("${selectedImage}")`;
   document.body.appendChild(bg);
 }
 

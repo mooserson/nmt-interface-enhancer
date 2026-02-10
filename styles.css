@@ -1,6 +1,12 @@
 /* NMT Interface Enhancer Styles */
 
 /* Transparency for Content Containers */
+/* Transparency for Content Containers */
+/* Target all common wrappers to ensure transparency trickles down */
+.container,
+.body-content,
+.jumbotron,
+form,
 .panel,
 .panel-default,
 .panel-heading,
