@@ -26,17 +26,18 @@ function addBackground() {
   bg.id = 'nmt-bg-overlay';
 
   // Curated list of high-quality bird images from Unsplash
+  // Curated list of high-quality bird images from Unsplash
   const birdImages = [
-    "https://images.unsplash.com/photo-1444464666168-49d633b86797?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Original
-    "https://images.unsplash.com/photo-1452570053594-1b985d6ea890?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Blue Jay
-    "https://images.unsplash.com/photo-1480044965905-02098d419e96?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Small bird on branch
-    "https://images.unsplash.com/photo-1552728089-57bdde30ebd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Cardinal
-    "https://images.unsplash.com/photo-1549608276-5786777e6587?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Yellow bird
-    "https://images.unsplash.com/photo-1555169062-013468b47731?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Colorful parrot
-    "https://images.unsplash.com/photo-1456885284447-7dd4bb8720bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Owl
-    "https://images.unsplash.com/photo-1516233758813-a38d024919c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Swan
-    "https://images.unsplash.com/photo-1522926193341-e9e6d9b8600d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Hummingbird
-    "https://images.unsplash.com/photo-1615497001839-b0a0eac3274c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"  // Kingfisher
+    "https://images.unsplash.com/photo-kdgMXLF52_k?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Northern Cardinal
+    "https://images.unsplash.com/photo-oqYHtXrLXLo?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Owl
+    "https://images.unsplash.com/photo-K_RlYhnKoh8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Hummingbird
+    "https://images.unsplash.com/photo-q_bx5FSjSqc?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Blue Jay
+    "https://images.unsplash.com/photo-vUNQaTtZeOo?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Kingfisher
+    "https://images.unsplash.com/photo-_WG7sZN7Wbk?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Robin
+    "https://images.unsplash.com/photo-h9ELZGXz4_Y?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Sparrow
+    "https://images.unsplash.com/photo-_ILykIaWpI4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Eagle
+    "https://images.unsplash.com/photo-CCBY51J5XBA?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Parrot
+    "https://images.unsplash.com/photo-RO7JbbItqoY?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"  // Swan
   ];
 
   // Get Report ID to use as seed
