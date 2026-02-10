@@ -303,10 +303,28 @@ if (document.readyState === 'loading') {
     addNavigation();
     enhanceDropdowns();
   });
+  addNavigation();
+  enhanceDropdowns();
+  highlightErrors(); // New: restore red rows
+});
 } else {
   // Sometimes DOM is ready but elements are inserted by JS. 
   // Small timeout helps, or just running it.
   addBackground();
   addNavigation();
   enhanceDropdowns();
+  highlightErrors();
+}
+
+function highlightErrors() {
+  // Find all rows with the specific red background color
+  // The site uses bgcolor="#FFCFCF"
+  const redRows = document.querySelectorAll('tr[bgcolor="#FFCFCF"], tr[bgcolor="#ffcfcf"]');
+  redRows.forEach(tr => {
+    tr.classList.add('nmt-error-row');
+  });
+
+  // Also listen for changes (if validation happens dynamically via AJAX/JS)
+  // Simple polling or mutation observer could work, but let's try just running it once first.
+  // If they submit and page reloads, this runs again.
 }
