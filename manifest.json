@@ -14,9 +14,16 @@
       ],
       "js": [
         "content.js"
-      ],
-      "css": [
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
         "styles.css"
+      ],
+      "matches": [
+        "https://nmt1.neurosequential.com/*"
       ]
     }
   ]

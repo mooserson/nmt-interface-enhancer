@@ -9,6 +9,18 @@ function triggerChange(element) {
   element.dispatchEvent(event);
 }
 
+
+function injectStyles() {
+  setTimeout(() => {
+    const link = document.createElement('link');
+    link.href = chrome.runtime.getURL('styles.css');
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
+    document.head.appendChild(link);
+    console.log('NMT Extension: Styles injected after delay');
+  }, 500);
+}
+
 // --- FEATURES ---
 
 function addBackground() {
@@ -301,6 +313,7 @@ function enhanceAsButtons(select, options) {
 function initExtension() {
   if (document.getElementById('nmt-nav-container')) return; // Already running?
 
+  injectStyles();
   addBackground();
   addNavigation();
   enhanceDropdowns();
