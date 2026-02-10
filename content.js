@@ -64,11 +64,20 @@ function updateProgress() {
   // For now, let's look for the visible header text like "Part A", "Part B".
 
   let currentPart = null;
-  const h2s = Array.from(document.querySelectorAll('h2, h3'));
+  const h2s = Array.from(document.querySelectorAll('h2, h3, .section-header, b'));
   const partHeader = h2s.find(h => h.innerText.includes('Part '));
   if (partHeader) {
     const match = partHeader.innerText.match(/Part ([A-D])/);
     if (match) currentPart = `Part ${match[1]}`;
+  }
+
+  // Fallback: Check for active buttons or hidden inputs if headers aren't found yet
+  if (!currentPart) {
+    const activeSectionBtn = document.querySelector('button.active[name="section"], input.active[name="section"]');
+    if (activeSectionBtn) {
+      const val = activeSectionBtn.value;
+      if (val && val.includes('Part ')) currentPart = val;
+    }
   }
 
   // 2. Calculate Progress
@@ -360,6 +369,11 @@ function initExtension() {
   enhanceDropdowns();
   highlightErrors();
   manageAutoInput(0, null); // Initialize container
+
+  // Staggered checks to catch content that loads after initial execution
+  [100, 500, 1500, 3000].forEach(delay => {
+    setTimeout(updateProgress, delay);
+  });
 
   // Watch for dynamic changes (ASP.NET partials, etc.)
   const observer = new MutationObserver((mutations) => {
