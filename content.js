@@ -297,16 +297,14 @@ function enhanceAsButtons(select, options) {
 }
 
 // Initialize
+// Initialize
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
     addBackground();
     addNavigation();
     enhanceDropdowns();
+    highlightErrors();
   });
-  addNavigation();
-  enhanceDropdowns();
-  highlightErrors(); // New: restore red rows
-});
 } else {
   // Sometimes DOM is ready but elements are inserted by JS. 
   // Small timeout helps, or just running it.
