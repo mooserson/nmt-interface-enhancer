@@ -55,16 +55,25 @@ textarea,
 }
 
 /* 6. Bold Rating Labels and Numbers */
-.panel-body table table tr:first-child td,
-.panel-body table table tr:nth-child(2) td {
-  font-weight: bold !important;
+/* Use attribute selector for reliability as these rows have hardcoded grey background */
+tr[style*="background-color: #dcdcdc"] td,
+tr[style*="dcdcdc"] td {
+  font-weight: 800 !important;
   color: #2c3e50 !important;
-  /* Ensure high contrast */
+  font-size: 1.1em !important;
+}
+
+/* Target the numbers row which usually follows the grey header */
+tr[style*="background-color: #dcdcdc"]+tr td,
+tr[style*="dcdcdc"]+tr td {
+  font-weight: 800 !important;
+  color: #2c3e50 !important;
+  font-size: 1.1em !important;
 }
 
 /* 7. Improve Layout Readability */
 .container {
-  max-width: 950px !important;
+  max-width: 850px !important;
   /* Prevent stretching to edges */
   margin: 0 auto !important;
 }
