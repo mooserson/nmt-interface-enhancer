@@ -1,6 +1,5 @@
 # 🧠 NMT Interface Enhancer
 
-![NMT Interface Enhancer Preview](images/nmt_ui_preview.png)
 
 Welcome! This is a little Chrome Extension to make the NMT reporting site much easier and nicer to use. 
 

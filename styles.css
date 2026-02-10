@@ -72,11 +72,33 @@ tr[style*="dcdcdc"] td {
   color: #2c3e50;
 }
 
-/* 7. Improve Layout Readability */
-.container {
-  max-width: 850px !important;
-  /* Prevent stretching to edges */
+/* Target the specific question tables */
+/* Target the specific question tables */
+/* Using high specificity and !important to override tables.less */
+body .panel .panel-body .table.table-condensed {
+  table-layout: fixed !important;
+  width: 90% !important;
+  max-width: 1400px !important;
   margin: 0 auto !important;
+}
+
+body .panel .panel-body .table.table-condensed td:first-child {
+  width: 60% !important;
+  vertical-align: middle;
+}
+
+body .panel .panel-body .table.table-condensed td:last-child {
+  width: 40% !important;
+  vertical-align: middle;
+}
+
+/* 7. Improve Layout Readability */
+/* 7. Improve Layout Readability */
+body .container {
+  width: 90%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 30px;
 }
 
 /* Ensure text remains readable */
@@ -143,6 +165,14 @@ th {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
+/* Active Navigation Button Halo */
+.active-nav-btn {
+  box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.3), 0 0 15px rgba(52, 152, 219, 0.6) !important;
+  border-color: #3498db !important;
+  transform: scale(1.15);
+  z-index: 10000;
+}
+
 /* Bottom Progress Bar */
 #nmt-progress-bar {
   position: fixed;
@@ -189,6 +219,8 @@ th {
   background: rgba(255, 255, 255, 0.7);
   border-radius: 8px;
   width: 100%;
+  min-width: 250px;
+  /* Fix: Prevent crushing */
   max-width: 450px;
   border: 1px solid rgba(0, 0, 0, 0.05);
 }
@@ -196,6 +228,7 @@ th {
 .nmt-slider {
   flex-grow: 1;
   -webkit-appearance: none;
+  appearance: none;
   height: 6px;
   background: #bdc3c7;
   border-radius: 5px;
