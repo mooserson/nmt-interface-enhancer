@@ -57,8 +57,9 @@ function updateProgress() {
   document.getElementById('nmt-progress-text').innerText = `${answered} / ${total} (${percentage}%)`;
 
   // 4. Update Current Part in Storage & Nav Loop
-  if (currentPart) {
-    localStorage.setItem(`nmt_progress_${currentPart}`, percentage);
+  const reportId = window.location.pathname.split('/').pop(); // Extract "132280" from url
+  if (currentPart && reportId) {
+    localStorage.setItem(`nmt_progress_${reportId}_${currentPart}`, percentage);
     updateNavButtons(); // Refresh visuals
   }
 }
@@ -68,10 +69,12 @@ function updateNavButtons() {
   const navContainer = document.getElementById('nmt-nav-container');
   if (!navContainer) return;
 
+  const reportId = window.location.pathname.split('/').pop(); // "132280"
+
   const buttons = navContainer.querySelectorAll('button');
   buttons.forEach(btn => {
     const partName = btn.dataset.partName; // "Part A"
-    const storedPct = parseInt(localStorage.getItem(`nmt_progress_${partName}`) || '0');
+    const storedPct = parseInt(localStorage.getItem(`nmt_progress_${reportId}_${partName}`) || '0');
 
     // Visual Logic: "Fill up"
     // We use a linear-gradient background.
