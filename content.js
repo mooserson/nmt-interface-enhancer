@@ -28,16 +28,16 @@ function addBackground() {
   // Curated list of high-quality bird images from Unsplash
   // Curated list of high-quality bird images from Unsplash
   const birdImages = [
-    "https://images.unsplash.com/photo-kdgMXLF52_k?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Northern Cardinal
-    "https://images.unsplash.com/photo-oqYHtXrLXLo?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Owl
-    "https://images.unsplash.com/photo-K_RlYhnKoh8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Hummingbird
-    "https://images.unsplash.com/photo-q_bx5FSjSqc?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Blue Jay
-    "https://images.unsplash.com/photo-vUNQaTtZeOo?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Kingfisher
-    "https://images.unsplash.com/photo-_WG7sZN7Wbk?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Robin
-    "https://images.unsplash.com/photo-h9ELZGXz4_Y?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Sparrow
-    "https://images.unsplash.com/photo-_ILykIaWpI4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Eagle
-    "https://images.unsplash.com/photo-CCBY51J5XBA?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Parrot
-    "https://images.unsplash.com/photo-RO7JbbItqoY?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"  // Swan
+    "https://images.unsplash.com/photo-1552153411-7393273293ca?auto=format&fit=crop&w=2000&q=80", // Northern Cardinal
+    "https://images.unsplash.com/photo-1543542592-125828e62441?auto=format&fit=crop&w=2000&q=80", // Owl
+    "https://images.unsplash.com/photo-1444464666168-49d633b867ad?auto=format&fit=crop&w=2000&q=80", // Hummingbird
+    "https://images.unsplash.com/photo-1484279153070-71708892781b?auto=format&fit=crop&w=2000&q=80", // Blue Jay
+    "https://images.unsplash.com/photo-1510672322603-320085cd8974?auto=format&fit=crop&w=2000&q=80", // Kingfisher
+    "https://images.unsplash.com/photo-1473491573935-ee81aaade44c?auto=format&fit=crop&w=2000&q=80", // Robin
+    "https://images.unsplash.com/photo-1506220926022-cc5c12acdb35?auto=format&fit=crop&w=2000&q=80", // Sparrow
+    "https://images.unsplash.com/photo-1483015488109-17361682496a?auto=format&fit=crop&w=2000&q=80", // Eagle
+    "https://images.unsplash.com/photo-1520699049698-acd2fccb8cc8?auto=format&fit=crop&w=2000&q=80", // Parrot
+    "https://images.unsplash.com/photo-1459245358918-5b4324f6fcf8?auto=format&fit=crop&w=2000&q=80"  // Swan
   ];
 
   // Get Report ID to use as seed
@@ -330,7 +330,13 @@ function initExtension() {
     let shouldEnhanceDropdowns = false;
     let shouldRestoreUI = false;
 
-    mutations.forEach(mutation => {
+    for (const mutation of mutations) {
+      // 1. FILTER: Ignore mutations caused by our own UI elements
+      const target = mutation.target;
+      if (target.closest('#nmt-nav-container, .nmt-slider-wrapper, .nmt-btn-group, #nmt-progress-bar, #nmt-bg-overlay')) {
+        continue;
+      }
+
       if (mutation.type === 'childList') {
         // If our UI elements were removed, put them back
         const removedIds = Array.from(mutation.removedNodes).map(n => n.id);
@@ -338,13 +344,19 @@ function initExtension() {
           shouldRestoreUI = true;
         }
 
-        // If new content added, check for errors/dropdowns
-        if (mutation.addedNodes.length > 0) {
+        // If new content added (and it's not ours), check for errors/dropdowns
+        const addedNodes = Array.from(mutation.addedNodes);
+        const hasExternalAdditions = addedNodes.some(node => {
+          if (node.nodeType !== 1) return false; // Only elements
+          return !node.closest?.('#nmt-nav-container, .nmt-slider-wrapper, .nmt-btn-group, #nmt-progress-bar, #nmt-bg-overlay');
+        });
+
+        if (hasExternalAdditions) {
           shouldUpdateErrors = true;
           shouldEnhanceDropdowns = true;
         }
       }
-    });
+    }
 
     if (shouldRestoreUI) {
       if (!document.getElementById('nmt-nav-container')) addNavigation();
