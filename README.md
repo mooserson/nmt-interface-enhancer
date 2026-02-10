@@ -28,7 +28,7 @@ Unzip the folder somewhere easy to find (like your Desktop).
 In the top-right corner of the Extensions page, you'll see a toggle switch called **Developer mode**. 
 **Turn it ON!** (The toggle should be blue).
 
-![Developer Mode](https://developer.chrome.com/static/docs/extensions/mv3/getstarted/images/developer_mode_toggle.png)
+![Developer Mode](./images/chrome_extension_developer_mode.png)
 
 ### 4. Load the Extension 📂
 1. Look for a new button that appeared in the top-left called **Load unpacked**.
