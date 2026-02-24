@@ -62,6 +62,18 @@ textarea,
   pointer-events: none;
 }
 
+/* When sidebar is hidden, expand the main content area */
+#wrapper.nmt-sidebar-collapsed {
+  padding-left: 0 !important;
+  overflow-x: auto;
+  transition: padding-left 0.3s ease;
+}
+
+/* Smooth transition for the wrapper padding */
+#wrapper {
+  transition: padding-left 0.3s ease;
+}
+
 /* Sidebar Toggle Button */
 #nmt-sidebar-toggle {
   position: fixed;

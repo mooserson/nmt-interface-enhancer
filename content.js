@@ -279,24 +279,42 @@ function addSidebarToggle() {
   const sidebar = document.querySelector('.sidebar');
   if (!sidebar) return;
 
+  const wrapper = document.getElementById('wrapper');
+
   const btn = document.createElement('button');
   btn.id = 'nmt-sidebar-toggle';
   btn.title = 'Toggle Sidebar';
   btn.innerHTML = '◀';
 
-  // Check localStorage for saved state
-  const isHidden = localStorage.getItem('nmt_sidebar_hidden') === 'true';
-  if (isHidden) {
-    sidebar.classList.add('nmt-sidebar-hidden');
-    btn.innerHTML = '▶';
-    btn.classList.add('sidebar-collapsed');
+  function applySidebarState(hidden) {
+    if (hidden) {
+      sidebar.classList.add('nmt-sidebar-hidden');
+      if (wrapper) {
+        wrapper.style.paddingLeft = '0px';
+        wrapper.style.overflowX = 'auto';
+      }
+      btn.innerHTML = '▶';
+      btn.classList.add('sidebar-collapsed');
+    } else {
+      sidebar.classList.remove('nmt-sidebar-hidden');
+      if (wrapper) {
+        wrapper.style.paddingLeft = '';
+        wrapper.style.overflowX = '';
+      }
+      btn.innerHTML = '◀';
+      btn.classList.remove('sidebar-collapsed');
+    }
   }
 
+  // Check localStorage for saved state
+  const isHidden = localStorage.getItem('nmt_sidebar_hidden') === 'true';
+  applySidebarState(isHidden);
+
   btn.addEventListener('click', () => {
-    const hidden = sidebar.classList.toggle('nmt-sidebar-hidden');
-    btn.innerHTML = hidden ? '▶' : '◀';
-    btn.classList.toggle('sidebar-collapsed', hidden);
-    localStorage.setItem('nmt_sidebar_hidden', hidden);
+    const hidden = sidebar.classList.contains('nmt-sidebar-hidden');
+    const newState = !hidden;
+    applySidebarState(newState);
+    localStorage.setItem('nmt_sidebar_hidden', newState);
   });
 
   document.body.appendChild(btn);
