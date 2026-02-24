@@ -271,6 +271,37 @@ function addNavigation() {
   updateNavButtons(); // Initial render from storage
 }
 
+// --- SIDEBAR TOGGLE ---
+
+function addSidebarToggle() {
+  if (document.getElementById('nmt-sidebar-toggle')) return;
+
+  const sidebar = document.querySelector('.sidebar');
+  if (!sidebar) return;
+
+  const btn = document.createElement('button');
+  btn.id = 'nmt-sidebar-toggle';
+  btn.title = 'Toggle Sidebar';
+  btn.innerHTML = '◀';
+
+  // Check localStorage for saved state
+  const isHidden = localStorage.getItem('nmt_sidebar_hidden') === 'true';
+  if (isHidden) {
+    sidebar.classList.add('nmt-sidebar-hidden');
+    btn.innerHTML = '▶';
+    btn.classList.add('sidebar-collapsed');
+  }
+
+  btn.addEventListener('click', () => {
+    const hidden = sidebar.classList.toggle('nmt-sidebar-hidden');
+    btn.innerHTML = hidden ? '▶' : '◀';
+    btn.classList.toggle('sidebar-collapsed', hidden);
+    localStorage.setItem('nmt_sidebar_hidden', hidden);
+  });
+
+  document.body.appendChild(btn);
+}
+
 // --- RATING KEY ---
 
 function addFloatingRatingKey() {
@@ -467,6 +498,7 @@ function initExtension() {
   injectStyles();
   addBackground();
   addNavigation();
+  addSidebarToggle();
   addFloatingRatingKey();
   enhanceDropdowns();
   highlightErrors();
