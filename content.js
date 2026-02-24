@@ -433,8 +433,6 @@ function enhanceAsSlider(select, values) {
 
   const numValues = values.map(v => parseInt(v)).sort((a, b) => a - b);
   const tickLabels = [];
-  const minVal = numValues[0];
-  const maxVal = numValues[numValues.length - 1];
 
   numValues.forEach(val => {
     const tick = document.createElement('span');
