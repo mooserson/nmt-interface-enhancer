@@ -248,9 +248,8 @@ th {
 /* Slider Controls */
 .nmt-slider-wrapper {
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
+  align-items: flex-start;
+  gap: 12px;
   margin: 5px 0 15px 0;
   padding: 10px;
   background: rgba(255, 255, 255, 0.7);
@@ -261,16 +260,28 @@ th {
   border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-/* Slider and display value stay on same row */
-.nmt-slider {
+.nmt-slider-column {
   flex: 1 1 auto;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Slider and display value stay on same row */
+.nmt-slider {
+  width: 100%;
   -webkit-appearance: none;
   appearance: none;
   height: 6px;
   background: #bdc3c7;
   border-radius: 5px;
   outline: none;
+}
+
+.nmt-slider-value {
+  flex: 0 0 auto;
+  align-self: center;
 }
 
 /* Number ticks row below slider */

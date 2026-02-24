@@ -482,9 +482,14 @@ function enhanceAsSlider(select, values) {
     }
   });
 
-  container.appendChild(slider);
+  // Wrap slider + ticks together so ticks align with slider track
+  const sliderColumn = document.createElement('div');
+  sliderColumn.className = 'nmt-slider-column';
+  sliderColumn.appendChild(slider);
+  sliderColumn.appendChild(ticksRow);
+
+  container.appendChild(sliderColumn);
   container.appendChild(display);
-  container.appendChild(ticksRow);
 
   select.parentNode.insertBefore(container, select.nextSibling);
 
