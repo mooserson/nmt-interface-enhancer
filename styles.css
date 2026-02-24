@@ -249,21 +249,22 @@ th {
 .nmt-slider-wrapper {
   display: flex;
   align-items: center;
-  gap: 15px;
+  flex-wrap: wrap;
+  gap: 8px;
   margin: 5px 0 15px 0;
-  /* Add margin to separate from dropdown */
   padding: 10px;
   background: rgba(255, 255, 255, 0.7);
   border-radius: 8px;
   width: 100%;
   min-width: 250px;
-  /* Fix: Prevent crushing */
   max-width: 450px;
   border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
+/* Slider and display value stay on same row */
 .nmt-slider {
-  flex-grow: 1;
+  flex: 1 1 auto;
+  min-width: 0;
   -webkit-appearance: none;
   appearance: none;
   height: 6px;
@@ -271,6 +272,42 @@ th {
   border-radius: 5px;
   outline: none;
 }
+
+/* Number ticks row below slider */
+.nmt-slider-ticks {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 0 0 0;
+}
+
+.nmt-tick-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: #95a5a6;
+  cursor: pointer;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.nmt-tick-label:hover {
+  color: #2c3e50;
+  background: rgba(52, 152, 219, 0.15);
+  transform: scale(1.2);
+}
+
+.nmt-tick-label.active {
+  color: white;
+  background: #2980b9;
+  font-weight: 700;
+}
+
 
 .nmt-slider::-webkit-slider-thumb {
   -webkit-appearance: none;

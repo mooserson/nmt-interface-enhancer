@@ -413,10 +413,6 @@ function enhanceDropdowns() {
 }
 
 function enhanceAsSlider(select, values) {
-  // Keep original visible? User said "overlay but not remove content". 
-  // Maybe make it smaller or just sit there.
-  // We'll put the slider *below* the select.
-
   const container = document.createElement('div');
   container.className = 'nmt-slider-wrapper';
 
@@ -431,19 +427,50 @@ function enhanceAsSlider(select, values) {
   display.className = 'nmt-slider-value';
   display.innerText = select.value || '?';
 
+  // Number ticks row
+  const ticksRow = document.createElement('div');
+  ticksRow.className = 'nmt-slider-ticks';
+
+  const numValues = values.map(v => parseInt(v)).sort((a, b) => a - b);
+  const tickLabels = [];
+
+  numValues.forEach(val => {
+    const tick = document.createElement('span');
+    tick.className = 'nmt-tick-label';
+    tick.innerText = val;
+    tick.dataset.value = val;
+    if (parseInt(select.value) === val) tick.classList.add('active');
+
+    tick.addEventListener('click', () => {
+      slider.value = val;
+      display.innerText = val;
+      select.value = val;
+      triggerChange(select);
+      updateTickHighlight(val);
+    });
+
+    tickLabels.push(tick);
+    ticksRow.appendChild(tick);
+  });
+
+  function updateTickHighlight(activeVal) {
+    tickLabels.forEach(t => {
+      t.classList.toggle('active', parseInt(t.dataset.value) === parseInt(activeVal));
+    });
+  }
+
   // TWO-WAY BINDING
 
   // 1. Slider -> Select
-  // On Drag (Input): Update value visually ONLY. 
-  // Do NOT touch the select element to avoid triggering site overhead.
   slider.addEventListener('input', () => {
     display.innerText = slider.value;
+    updateTickHighlight(slider.value);
   });
 
-  // On Drop (Change): Trigger the site's logic
   slider.addEventListener('change', () => {
-    select.value = slider.value; // Ensure sync
-    triggerChange(select); // Triggers site logic + our progress update
+    select.value = slider.value;
+    triggerChange(select);
+    updateTickHighlight(slider.value);
   });
 
   // 2. Select -> Slider
@@ -451,11 +478,13 @@ function enhanceAsSlider(select, values) {
     if (select.value) {
       slider.value = select.value;
       display.innerText = select.value;
+      updateTickHighlight(select.value);
     }
   });
 
   container.appendChild(slider);
   container.appendChild(display);
+  container.appendChild(ticksRow);
 
   select.parentNode.insertBefore(container, select.nextSibling);
 
@@ -463,6 +492,7 @@ function enhanceAsSlider(select, values) {
   if (select.value) {
     slider.value = select.value;
     display.innerText = select.value;
+    updateTickHighlight(select.value);
   }
 }
 
