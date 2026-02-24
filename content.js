@@ -160,14 +160,18 @@ function updateRatingKeyLabels(currentPart) {
   if (!tbody) return;
 
   const rows = tbody.querySelectorAll('tr');
-  const levelClasses = ['lvl-minimal', 'lvl-mild', 'lvl-moderate', 'lvl-severe'];
+  // Part A: low=minimal(green), high=severe(red)
+  // Parts B,C,D: low=absent/poor(red), high=positive(green) — reversed
+  const reversedParts = ['Part B', 'Part C', 'Part D'];
+  const levelClasses = reversedParts.includes(currentPart)
+    ? ['lvl-severe', 'lvl-moderate', 'lvl-mild', 'lvl-minimal']
+    : ['lvl-minimal', 'lvl-mild', 'lvl-moderate', 'lvl-severe'];
 
   currentLabels.forEach((label, i) => {
     if (rows[i]) {
       const td = rows[i].querySelector('td:first-child');
       if (td) {
         td.innerText = label;
-        // Update class for color mapping consistency if label changed
         td.className = levelClasses[i];
       }
     }
