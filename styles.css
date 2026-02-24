@@ -286,15 +286,17 @@ th {
 
 /* Number ticks row below slider */
 .nmt-slider-ticks {
+  position: relative;
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  padding: 2px 0 0 0;
-  margin: 0 -4px;
-  box-sizing: border-box;
+  height: 30px;
+  margin: 0;
+  padding: 0;
 }
 
 .nmt-tick-label {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
   font-size: 14px;
   font-weight: 600;
   color: #95a5a6;

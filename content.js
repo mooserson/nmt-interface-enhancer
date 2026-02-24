@@ -433,6 +433,8 @@ function enhanceAsSlider(select, values) {
 
   const numValues = values.map(v => parseInt(v)).sort((a, b) => a - b);
   const tickLabels = [];
+  const minVal = numValues[0];
+  const maxVal = numValues[numValues.length - 1];
 
   numValues.forEach(val => {
     const tick = document.createElement('span');
@@ -440,6 +442,10 @@ function enhanceAsSlider(select, values) {
     tick.innerText = val;
     tick.dataset.value = val;
     if (parseInt(select.value) === val) tick.classList.add('active');
+
+    // Position to match slider thumb: thumb center at calc(pct * (100% - thumbWidth) + thumbWidth/2)
+    const pct = (val - minVal) / (maxVal - minVal);
+    tick.style.left = `calc(${pct * 100}% - ${pct * 20}px + 10px)`;
 
     tick.addEventListener('click', () => {
       slider.value = val;
