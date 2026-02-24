@@ -256,7 +256,7 @@ th {
   border-radius: 8px;
   width: 100%;
   min-width: 250px;
-  max-width: 450px;
+  max-width: 500px;
   border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
@@ -286,27 +286,19 @@ th {
 
 /* Number ticks row below slider */
 .nmt-slider-ticks {
-  position: relative;
   width: 100%;
-  height: 30px;
-  margin: 0;
-  padding: 0;
+  display: flex;
 }
 
 .nmt-tick-label {
-  position: absolute;
-  top: 0;
-  transform: translateX(-50%);
+  flex: 1;
+  text-align: center;
   font-size: 14px;
   font-weight: 600;
   color: #95a5a6;
   cursor: pointer;
-  width: 28px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
+  padding: 4px 0;
+  border-radius: 4px;
   transition: all 0.15s ease;
   user-select: none;
 }
@@ -314,7 +306,6 @@ th {
 .nmt-tick-label:hover {
   color: #2c3e50;
   background: rgba(52, 152, 219, 0.15);
-  transform: scale(1.2);
 }
 
 .nmt-tick-label.active {

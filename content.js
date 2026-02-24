@@ -443,10 +443,6 @@ function enhanceAsSlider(select, values) {
     tick.dataset.value = val;
     if (parseInt(select.value) === val) tick.classList.add('active');
 
-    // Position to match slider thumb: thumb center at calc(pct * (100% - thumbWidth) + thumbWidth/2)
-    const pct = (val - minVal) / (maxVal - minVal);
-    tick.style.left = `calc(${pct * 100}% - ${pct * 20}px + 10px)`;
-
     tick.addEventListener('click', () => {
       slider.value = val;
       display.innerText = val;
