@@ -160,18 +160,14 @@ function updateRatingKeyLabels(currentPart) {
   if (!tbody) return;
 
   const rows = tbody.querySelectorAll('tr');
-  // Part A: low=minimal(green), high=severe(red)
-  // Parts B,C,D: low=absent/poor(red), high=positive(green) — reversed
-  const reversedParts = ['Part B', 'Part C', 'Part D'];
-  const levelClasses = reversedParts.includes(currentPart)
-    ? ['lvl-severe', 'lvl-moderate', 'lvl-mild', 'lvl-minimal']
-    : ['lvl-minimal', 'lvl-mild', 'lvl-moderate', 'lvl-severe'];
+  const levelClasses = ['lvl-minimal', 'lvl-mild', 'lvl-moderate', 'lvl-severe'];
 
   currentLabels.forEach((label, i) => {
     if (rows[i]) {
       const td = rows[i].querySelector('td:first-child');
       if (td) {
         td.innerText = label;
+        // Update class for color mapping consistency if label changed
         td.className = levelClasses[i];
       }
     }
@@ -273,55 +269,6 @@ function addNavigation() {
   });
 
   updateNavButtons(); // Initial render from storage
-}
-
-// --- SIDEBAR TOGGLE ---
-
-function addSidebarToggle() {
-  if (document.getElementById('nmt-sidebar-toggle')) return;
-
-  const sidebar = document.querySelector('.sidebar');
-  if (!sidebar) return;
-
-  const wrapper = document.getElementById('wrapper');
-
-  const btn = document.createElement('button');
-  btn.id = 'nmt-sidebar-toggle';
-  btn.title = 'Toggle Sidebar';
-  btn.innerHTML = '◀';
-
-  function applySidebarState(hidden) {
-    if (hidden) {
-      sidebar.classList.add('nmt-sidebar-hidden');
-      if (wrapper) {
-        wrapper.style.paddingLeft = '0px';
-        wrapper.style.overflowX = 'auto';
-      }
-      btn.innerHTML = '▶';
-      btn.classList.add('sidebar-collapsed');
-    } else {
-      sidebar.classList.remove('nmt-sidebar-hidden');
-      if (wrapper) {
-        wrapper.style.paddingLeft = '';
-        wrapper.style.overflowX = '';
-      }
-      btn.innerHTML = '◀';
-      btn.classList.remove('sidebar-collapsed');
-    }
-  }
-
-  // Check localStorage for saved state
-  const isHidden = localStorage.getItem('nmt_sidebar_hidden') === 'true';
-  applySidebarState(isHidden);
-
-  btn.addEventListener('click', () => {
-    const hidden = sidebar.classList.contains('nmt-sidebar-hidden');
-    const newState = !hidden;
-    applySidebarState(newState);
-    localStorage.setItem('nmt_sidebar_hidden', newState);
-  });
-
-  document.body.appendChild(btn);
 }
 
 // --- RATING KEY ---
@@ -520,7 +467,6 @@ function initExtension() {
   injectStyles();
   addBackground();
   addNavigation();
-  addSidebarToggle();
   addFloatingRatingKey();
   enhanceDropdowns();
   highlightErrors();
