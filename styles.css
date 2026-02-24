@@ -380,11 +380,12 @@ th {
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   width: fit-content;
   min-width: 200px;
   max-width: 500px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 #nmt-floating-key-container.expanded .nmt-key-table-wrapper {
