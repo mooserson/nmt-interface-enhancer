@@ -52,11 +52,55 @@ textarea,
 .sidebar {
   background-color: rgba(26, 43, 109, 0.85) !important;
   backdrop-filter: blur(5px);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Sidebar Hidden State */
+.sidebar.nmt-sidebar-hidden {
+  transform: translateX(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Smooth transition for the wrapper padding */
+#wrapper {
+  transition: padding-left 0.3s ease;
+}
+
+/* Sidebar Toggle Button */
+#nmt-sidebar-toggle {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 10001;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(26, 43, 109, 0.85);
+  backdrop-filter: blur(10px);
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: background 0.2s, transform 0.2s;
+  padding: 0;
+  line-height: 1;
+}
+
+#nmt-sidebar-toggle:hover {
+  background: rgba(52, 73, 150, 0.95);
+  transform: scale(1.1);
+}
+
+#nmt-sidebar-toggle:active {
+  transform: scale(0.95);
 }
 
 /* 6. Bold Rating Labels and Numbers */
-/* 6. Bold Rating Labels and Numbers */
-/* Use attribute selector for reliability as these rows have hardcoded grey background */
 tr[style*="background-color: #dcdcdc"] td,
 tr[style*="dcdcdc"] td {
   font-weight: 800 !important;
@@ -64,17 +108,12 @@ tr[style*="dcdcdc"] td {
   font-size: 1.1em !important;
 }
 
-/* REMOVED sibling selector that was affecting description rows */
-
 /* Ensure ALL table text is visible (dark) against the light background */
-/* This fixes the "disappeared text" issue if it was white-on-white */
 .panel-body table td {
   color: #2c3e50;
 }
 
 /* Target the specific question tables */
-/* Target the specific question tables */
-/* Using high specificity and !important to override tables.less */
 body .panel .panel-body .table.table-condensed {
   table-layout: fixed !important;
   width: 90% !important;
@@ -92,7 +131,6 @@ body .panel .panel-body .table.table-condensed td:last-child {
   vertical-align: middle;
 }
 
-/* 7. Improve Layout Readability */
 /* 7. Improve Layout Readability */
 body .container {
   width: 90%;
@@ -127,7 +165,7 @@ th {
 /* Navigation Container */
 #nmt-nav-container {
   position: fixed;
-  bottom: 120px;
+  bottom: 280px;
   right: 20px;
   display: flex;
   flex-direction: column;
@@ -323,8 +361,8 @@ th {
 /* Floating Rating Key */
 #nmt-floating-key-container {
   position: fixed;
-  bottom: 40px;
-  right: 80px;
+  bottom: 50px;
+  right: 20px;
   z-index: 9999;
   display: flex;
   flex-direction: column;
